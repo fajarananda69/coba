@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"simple-api/auth"
 	"simple-api/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq" // add this
 )
 
@@ -193,7 +195,12 @@ func delHandler(c *gin.Context, db *gorm.DB) {
 }
 
 func setupRouter() *gin.Engine {
-	conn := "postgres://bugtyxsaynshke:884f9c1391870db9dec755479709e1481a3b1fa13beba43b3457d0774bba84e8@ec2-3-208-79-113.compute-1.amazonaws.com:5432/d74b6srmvo4amc"
+	errEnv := godotenv.Load(".env")
+	if errEnv != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	conn := os.Getenv("POSTGRES_URL")
 	db, err := gorm.Open("postgres", conn)
 	if err != nil {
 		log.Fatal(err)
@@ -260,6 +267,6 @@ func seederUser(db *gorm.DB) {
 func main() {
 	r := setupRouter()
 
-	r.Run(":8080")
+	r.Run()
 
 }
