@@ -203,6 +203,12 @@ func setupRouter() *gin.Engine {
 
 	r := gin.Default()
 
+	r.GET("/", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{
+			"message": "success",
+		})
+	})
+
 	r.POST("/login", auth.LoginHandler)
 
 	r.POST("/student", func(ctx *gin.Context) {
