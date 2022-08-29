@@ -193,7 +193,7 @@ func delHandler(c *gin.Context, db *gorm.DB) {
 }
 
 func setupRouter() *gin.Engine {
-	conn := "postgresql://postgres:postgres@127.0.0.1/postgres?sslmode=disable"
+	conn := "postgres://bugtyxsaynshke:884f9c1391870db9dec755479709e1481a3b1fa13beba43b3457d0774bba84e8@ec2-3-208-79-113.compute-1.amazonaws.com:5432/d74b6srmvo4amc"
 	db, err := gorm.Open("postgres", conn)
 	if err != nil {
 		log.Fatal(err)
